@@ -306,6 +306,14 @@ p.author, p.date {
   font-size: 2.5em;
 }
 
+
+.reveal .slides section.contain {
+  top: 0 !important;
+}
+.reveal .slide-background.contain .slide-background-content {
+  background-size: contain;
+}
+
 /*********************************************
  * NAVIGATION CONTROLS
  *********************************************/

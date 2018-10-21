@@ -11,6 +11,9 @@ classoption: dvipsnames
 ## Haskell at Work
 
 - "Haskell at Work" screencasts
+    - Centered around code editor
+    - Fast-paced
+    - No webcam overlay or effects
 - Workflow:
     - Write a script
     - Record video separately
@@ -20,9 +23,9 @@ classoption: dvipsnames
 ## Video Editors
 
 - Free video editors: Kdenlive, OpenShot
-    - Crashing
     - No good normalization and gate audio effects
     - Unsuited for my workflow
+    - Unstable (and I don't want to hack C++)
 - Commerical video editors: Premiere Pro, Final Cut Pro
     - Proprietary
     - Expensive
@@ -32,17 +35,15 @@ classoption: dvipsnames
 
 ## Building a Video Editor
 
-- I decided to build a screen video editor
+- I decided to build a screencast video editor
     - Minimal
     - Suited to my workflow
 - I decided write it in Haskell
     - Didn't want to write an Electron app
     - Settled on GTK+ (`gi-gtk` package)
-- Using existing and new libraries of mine:
-    - `motor` for type-indexed state machines
-    - `gi-gtk-declarative` for declarative GTK+ programming
+- Dog-fooding some of my own libraries
 
-# Komposition
+# Komposition{background=images/cinema.jpg .dark}
 
 ## Komposition Overview
 
@@ -64,11 +65,20 @@ classoption: dvipsnames
   </tr>
 </table>
 
+## Hiearchical Timeline
+
+- _Sequences_ contain _parallels_ that are played in sequence
+- _Parallels_ contain video and audio tracks that are played in parallel
+- Gaps and shorter tracks are _filled_ with still frames or silence
+
 ## Keyboard-Driven Editing
 
-- Events
-- Keymaps
+- Vim-like bindings
+- Data structures
+    - Events
+    - Keymaps
 - Help dialog
+    - Shows all key bindings
 
 # Implementation
 
@@ -170,5 +180,5 @@ classoption: dvipsnames
 - Slides: [owickstrom.github.io/declarative-gtk-programming-in-haskell/](https://owickstrom.github.io/declarative-gtk-programming-in-haskell/)
 - Code examples and slides source code: [github.com/owickstrom/declarative-gtk-programming-in-haskell/](https://github.com/owickstrom/declarative-gtk-programming-in-haskell/)
 - Image credits:
-    - Yak [by travelwayoflife - Flickr, CC BY-SA 2.0](https://commons.wikimedia.org/w/index.php?curid=22106967)
-    - Human evolution sceheme [by M. Garde - Self work (Original by: José-Manuel Benitos), CC BY-SA 3.0] (https://commons.wikimedia.org/w/index.php?curid=2165296)
+    - Yak: [by travelwayoflife - Flickr, CC BY-SA 2.0](https://commons.wikimedia.org/w/index.php?curid=22106967)
+    - Human evolution scheme: [by M. Garde - Self work (Original by: José-Manuel Benitos), CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=2165296)

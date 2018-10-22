@@ -1,6 +1,6 @@
-# Declarative GTK+ Programming in Haskell
+# Writing a Screencast Video Editor in Haskell
 
-A talk given at LambdAle in London, September 1st, 2018.
+A talk for Lambda World Cadiz 2018
 
 ## Building
 
@@ -20,8 +20,7 @@ make
 
 ## License
 
-Code examples under `src/listings/`, and the theme and build configuration, are
-all licensed under [Mozilla Public License Version
+The theme and build configuration is licensed under [Mozilla Public License Version
 2.0](https://www.mozilla.org/en-US/MPL/2.0/).
 
 The contents of the slides are "All rights reserved" licensed.

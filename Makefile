@@ -5,6 +5,7 @@ TEX_OPTIONS=options.tex
 SRCS=$(shell find src -name '*.tex') \
      $(shell find src -name '*.bib') \
      $(shell find src -name '*.md') \
+     $(shell find src -name '*.css') \
 		 $(shell find src/examples -name '*.hs')
 
 PANDOC_FLAGS= -s \
@@ -95,6 +96,7 @@ target/images/%: src/images/%
 	cp $< $@
 
 serve: html-slides
+	(find src | entr -s 'make html-slides && scripts/reload-browser Firefox') &
 	serve -p 10000 target/html
 
 .PHONY: pages

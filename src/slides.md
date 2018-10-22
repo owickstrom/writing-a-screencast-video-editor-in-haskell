@@ -6,6 +6,14 @@ theme: Boadilla
 classoption: dvipsnames
 ---
 
+## About Me
+
+- Live in Sweden, Malmö
+- Work for [Symbiont](https://symbiont.io/)
+- Blog at [wickstrom.tech](https://wickstrom.tech)
+- [Haskell at Work](https://haskell-at-work.com) screencasts
+- Maintain some open source projects
+
 # Background{background=images/evolution.png .contain}
 
 ## Haskell at Work
@@ -43,7 +51,7 @@ classoption: dvipsnames
     - Settled on GTK+ (`gi-gtk` package)
 - Dog-fooding some of my own libraries
 
-# Komposition{background=images/cinema.jpg .dark}
+# Komposition{background=#00008B .dark}
 
 ## Komposition Overview
 
@@ -67,9 +75,10 @@ classoption: dvipsnames
 
 ## Hiearchical Timeline
 
-- _Sequences_ contain _parallels_ that are played in sequence
-- _Parallels_ contain video and audio tracks that are played in parallel
-- Gaps and shorter tracks are _filled_ with still frames or silence
+- **Sequences** contain parallels that are played in sequence
+- **Parallels** contain video and audio tracks that are played in parallel
+- **Gaps** are rendered with still frames or silence
+- Same for shorter tracks within a parallel
 
 ## Keyboard-Driven Editing
 
@@ -80,25 +89,13 @@ classoption: dvipsnames
 - Help dialog
     - Shows all key bindings
 
-# Implementation
+# Implementation{background=images/cogs.jpg .dark}
 
 ## Pure core domain
 
 - Timeline
 - Focus
 - Commands
-
-## Property-Based Testing
-
-- Timeline commands and movement
-    - Generates sequences of commands
-    - Applies all commands
-    - Resulting focus should always be valid
-- Video scene classification
-    - Generates known test scenes
-    - Translates to real pixel buffers
-    - Runs classifier, compares to known test scenes
-- Symmetry of FFmpeg format printers and parsers
 
 ## GTK+
 
@@ -119,9 +116,10 @@ classoption: dvipsnames
 
 - Automatic sentence classification of audio
 - Currently using `sox`
-- Normalization
-- Noise gate
-- Auto-splitting by silence
+    - Normalization
+    - Noise gate
+    - Auto-splitting by silence
+- Hard to find good defaults (currently hard-coded)
 
 ## Rendering
 
@@ -136,6 +134,34 @@ classoption: dvipsnames
 - Proxy media for performance
 - Same FFmpeg backend as when rendering
 - Streaming to GStreamer widget
+
+# Testing{background=images/testing.jpg .dark}
+
+## Color-Tinting Video Classifier
+
+<table>
+  <tr>
+    <td>
+- Tints the original video with red/green based on classification
+- Easier to debug using real recordings
+    </td>
+    <td width="50%">
+![Komposition](images/komposition.png)
+    </td>
+  </tr>
+</table>
+
+## Property-Based Testing
+
+- Timeline commands and movement
+    - Generates sequences of commands
+    - Applies all commands
+    - Resulting focus should always be valid
+- Video scene classification
+    - Generates known test scenes
+    - Translates to real pixel buffers
+    - Runs classifier, compares to known test scenes
+- Symmetry of FFmpeg format printers and parsers
 
 # Used Packages
 
@@ -180,5 +206,6 @@ classoption: dvipsnames
 - Slides: [owickstrom.github.io/declarative-gtk-programming-in-haskell/](https://owickstrom.github.io/declarative-gtk-programming-in-haskell/)
 - Code examples and slides source code: [github.com/owickstrom/declarative-gtk-programming-in-haskell/](https://github.com/owickstrom/declarative-gtk-programming-in-haskell/)
 - Image credits:
-    - Yak: [by travelwayoflife - Flickr, CC BY-SA 2.0](https://commons.wikimedia.org/w/index.php?curid=22106967)
-    - Human evolution scheme: [by M. Garde - Self work (Original by: José-Manuel Benitos), CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=2165296)
+    - [Yak by travelwayoflife - Flickr, CC BY-SA 2.0](https://commons.wikimedia.org/w/index.php?curid=22106967)
+    - [Human evolution scheme by M. Garde - Self work (Original by: José-Manuel Benitos), CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=2165296)
+    - [Old Cogs by Emmanuel Huybrechts from Laval, Canada (Old Cogs) CC BY 2.0, via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Old_Cogs_(5084228263).jpg)

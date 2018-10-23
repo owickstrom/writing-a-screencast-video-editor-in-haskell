@@ -66,6 +66,7 @@ classoption: dvipsnames
 - Automatic scene classification
 - Automatic sentence classification
 - Keyboard-driven editing workflow
+- Cross-platform
     </td>
     <td width="50%">
 ![Komposition](images/komposition.png)
@@ -83,34 +84,85 @@ classoption: dvipsnames
 ## Keyboard-Driven Editing
 
 - Vim-like bindings
-- Data structures
-    - Events
-    - Keymaps
-- Help dialog
-    - Shows all key bindings
+- Corresponding menu items
+- Some mouse support
+- Help dialog showing current mode's key bindings
+
+# Demo{background-video=images/demo.gif background-video-loop=true .dark}
 
 # Implementation{background=images/cogs.jpg .dark}
 
-## Pure core domain
+## Striving for Purely Functional
 
-- Timeline
-- Focus
-- Commands
+- Pure functions and data structures in core domain
+    - Timeline
+    - Focus
+    - Commands
+    - Event handling
+    - Key bindings
+- Impure parts:
+    - Audio and video import
+    - Scene/sentence classification
+    - Preview frame rendering
+    - Main application control flow
 
 ## GTK+
 
 - Regular GTK+ was too painful
-- `gi-gtk-declarative`
-- Custom widgets
+    - Imperative
+    - Callback-oriented
+    - Everything in IO, no explicit model
+- Started `gi-gtk-declarative`
+    - Declarative using data structures
+    - VDOM-like diffing
+    - Events are functions and values
+    - Custom widgets
 - Imperative `gi-gtk` where needed
+
+## Type-Indexed State Machines
+
+- Using `motor` for describing state machines with types:
+
+    ```haskell
+    start
+      :: Name n
+      -> KeyMaps
+      -> Actions m '[ n !+ State m WelcomeScreenMode] r ()
+    ```
+
+    ```haskell
+    returnToTimeline
+      :: ReturnsToTimeline mode
+      => Name n
+      -> TimelineModel
+      -> Actions m '[ n := State m mode !--> State m TimelineMode] r ()
+    ```
+- Most complicated aspect of the codebase
+- Maybe worth it
+- Currently being rewritten
 
 ## Automatic Scene Classification
 
-- Automatic scene classification of video
-- Using `ffmpeg-light` to create a `Producer` of frames
+- Creates a producer of frames
+
+    ```haskell
+    readVideoFile :: MonadIO m => FilePath -> Producer (Timed Frame) m ()
+    ```
 - Custom algorithm for classification
-- `massiv` and `massiv-io` for parallel pixel comparison
-- Property-based testing with Hedgehog
+
+    ```haskell
+    classifyMovement
+        :: Monad m
+        => Time -- ^ Minimum segment duration
+        -> Producer (Timed RGB8Frame) m ()
+        -> Producer (Classified (Timed RGB8Frame)) m ()
+
+    classifyMovingScenes
+      :: Monad m
+      => Duration -- ^ Full length of video
+      -> Producer (Classified (Timed Frame)) m ()
+      -> Producer Time m [TimeSpan]
+    ```
 
 ## Automatic Sentence Classification
 
@@ -120,11 +172,13 @@ classoption: dvipsnames
     - Noise gate
     - Auto-splitting by silence
 - Hard to find good defaults (currently hard-coded)
+- Creates segment audio files on disk (can't extract timespans)
 
 ## Rendering
 
 - Flattening timeline
-- Pads gaps and empty parts with still frames
+    - Conversion from hierarchical timeline to flat IR
+    - Pads gaps and empty parts with still frames
 - Data types for FFmpeg CLI syntax
     - Common flags
     - Filter graph
@@ -133,23 +187,22 @@ classoption: dvipsnames
 
 - Proxy media for performance
 - Same FFmpeg backend as when rendering
-- Streaming to GStreamer widget
+    - Output is a streaming HTTP server
+    - Not ideal, would like to use a named pipe or domain socket
+- GStreamer widget
+    - Consumes the HTTP stream
+    - Embedded in the GTK+ user interface
+- Unstable!
+- Currently doesn't work on individual clips and gaps
 
 # Testing{background=images/testing.jpg .dark}
 
 ## Color-Tinting Video Classifier
 
-<table>
-  <tr>
-    <td>
 - Tints the original video with red/green based on classification
-- Easier to debug using real recordings
-    </td>
-    <td width="50%">
-![Komposition](images/komposition.png)
-    </td>
-  </tr>
-</table>
+- Easier to test classifier on real recordings
+
+![Komposition](images/color-tinting.gif)
 
 ## Property-Based Testing
 
@@ -163,49 +216,84 @@ classoption: dvipsnames
     - Runs classifier, compares to known test scenes
 - Symmetry of FFmpeg format printers and parsers
 
+## Example-Based Testing
+
+- Commands
+- Navigation
+- FFmpeg syntax printing
+
 # Used Packages
 
 ## haskell-gi
 
 - Bindings for GTK+, GStreamer, and more
-- ...
-
-## gi-gtk-declarative
-
-- Declarative GTK+
-- ...
-
-## ffmpeg-light
-
-- Streaming frame reader
-- ...
+    - gi-gobject
+    - gi-glib
+    - gi-gst
+    - gi-gtk
+    - gi-gdk
+    - gi-gdkpixbuf
+    - gi-pango
+- Extended with gi-gtk-declarative
 
 ## massiv & massiv-io
 
+- Used in video classifier
 - Parallel comparison of pixel arrays
-- ...
+- Conversion from JuicyPixels frames to massiv arrays
+- Lower-resolution proxy media helps with performance
 
 ## Pipes
 
-- Streaming frame reader around ffmpeg-light
+- Streaming frame reader and writer around `ffmpeg-light`
 - IO operations with streaming progress notifications
 
-## Motor
+    ```haskell
+    importVideoFileAutoSplit
+      :: (MonadIO m, MonadSafe m)
+      => VideoSettings
+      -> FilePath
+      -> FilePath
+      -> Producer ProgressUpdate m [VideoAsset]
+    ```
+- `pipes-safe` for handling resources
+- `pipes-parse` for `StateT`-based transformations
 
-- Finite-state machines with type-safe transitions and effects
+## Others
 
-## Lens
-
+- protolude
 - lens
-- ...
+- typed-process
 
 # Summary
 
+## Summary
+
+- ...
+
+## Next Steps
+
+- Missing features:
+    - ...
+- Improvements:
+    - ...
+- Packaging
+
+## Documentation
+
+- [owickstrom.github.io/komposition/](https://owickstrom.github.io/komposition/)
+    - User guide
+    - Tutorial screencast
+
+![Komposition documentation](images/documentation.png){width=60%}
+
 ## Thank You!
 
-- Slides: [owickstrom.github.io/declarative-gtk-programming-in-haskell/](https://owickstrom.github.io/declarative-gtk-programming-in-haskell/)
-- Code examples and slides source code: [github.com/owickstrom/declarative-gtk-programming-in-haskell/](https://github.com/owickstrom/declarative-gtk-programming-in-haskell/)
+- Komposition: [owickstrom.github.io/komposition/](https://owickstrom.github.io/komposition/)
+- Slides: [owickstrom.github.io/writing-a-screencast-video-editor-in-haskell/](https://owickstrom.github.io/writing-a-screencast-video-editor-in-haskell/)
+- Code examples and slides source code: [github.com/owickstrom/writing-a-screencast-video-editor-in-haskell/](https://github.com/owickstrom/writing-a-screencast-video-editor-in-haskell/)
 - Image credits:
     - [Yak by travelwayoflife - Flickr, CC BY-SA 2.0](https://commons.wikimedia.org/w/index.php?curid=22106967)
     - [Human evolution scheme by M. Garde - Self work (Original by: José-Manuel Benitos), CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=2165296)
     - [Old Cogs by Emmanuel Huybrechts from Laval, Canada (Old Cogs) CC BY 2.0, via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Old_Cogs_(5084228263).jpg)
+    - [Save the skateboard!](https://www.reddit.com/r/BetterEveryLoop/comments/6gsbs3/save_the_skateboard/)

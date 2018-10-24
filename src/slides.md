@@ -8,11 +8,12 @@ classoption: dvipsnames
 
 ## About Me
 
-- Live in Sweden, Malmö
+- Live in Malmö, Sweden
 - Work for [Symbiont](https://symbiont.io/)
 - Blog at [wickstrom.tech](https://wickstrom.tech)
 - [Haskell at Work](https://haskell-at-work.com) screencasts
 - Maintain some open source projects
+- Spent the last six months writing a screencast video editor
 
 # Background{background=images/evolution.png .contain}
 
@@ -22,30 +23,36 @@ classoption: dvipsnames
     - Centered around code editor
     - Fast-paced
     - No webcam overlay or effects
-- Workflow:
-    - Write a script
+- My workflow
+    - Write a detailed script
     - Record video separately
     - Record audio separately
     - Cut and join all "scenes"
 
 ## Video Editors
 
-- Free video editors: Kdenlive, OpenShot
-    - No good normalization and gate audio effects
-    - Unsuited for my workflow
+- Free video editors (Kdenlive, OpenShot, ...)
+    - No good normalization and audio gate effects
     - Unstable (and I don't want to hack C++)
-- Commerical video editors: Premiere Pro, Final Cut Pro
+    - Unsuited for my workflow
+- Commerical video editors (Premiere Pro, Final Cut Pro, ...)
     - Proprietary
     - Expensive
     - Unsuited for my workflow
+
+<aside class="notes">
+* I first tried free video editors ...
+* Then I tried proprietary video editors ...
+* So, I started "The Great Yak Shave"
+</aside>
 
 # The Great Yak Shave{background=images/yak.jpg .dark}
 
 ## Building a Video Editor
 
 - I decided to build a screencast video editor
-    - Minimal
-    - Suited to my workflow
+    - Tailored to my workflow
+    - Minimal, do one thing well
 - I decided write it in Haskell
     - Didn't want to write an Electron app
     - Settled on GTK+
@@ -87,7 +94,10 @@ classoption: dvipsnames
 - **Sequences** contain parallels that are played in sequence
 - **Parallels** contain video and audio tracks that are played in parallel
 - **Gaps** are rendered with still frames or silence
-- Same for shorter tracks within a parallel
+    - Same for shorter tracks within a parallel
+- Sequences and parallels are used for
+    - Grouping/structure
+    - Synchronization
 
 ## Keyboard-Driven Editing
 
@@ -99,6 +109,29 @@ classoption: dvipsnames
 # Demo{background-video=images/demo.gif background-video-loop=true .dark}
 
 # Implementation{background=images/cogs.jpg .dark}
+
+## Implementation
+
+<table style="width: 100%">
+    <tr>
+        <th>Language</th>
+        <th>Files</th>
+        <th>Comment</th>
+        <th>Code</th>
+    </tr>
+    <tr>
+        <td>Haskell</td>
+        <td>61</td>
+        <td>172</td>
+        <td>5438</td>
+    </tr>
+    <tr>
+        <td>CSS</td>
+        <td>1</td>
+        <td>0</td>
+        <td>143</td>
+    </tr>
+</table>
 
 ## Striving for Purely Functional
 
@@ -114,6 +147,13 @@ classoption: dvipsnames
     - Preview frame rendering
     - Main application control flow
 
+<aside class="notes">
+- I'm striving to keep the core domain code pure
+- "Functional core, imperative shell", Gary Bernhardt
+- This includes: ...
+- There are still impure parts, like: ...
+</aside>
+
 ## GTK+
 
 - Haskell bindings from `gi-gtk`
@@ -124,13 +164,13 @@ classoption: dvipsnames
 - Started `gi-gtk-declarative`
     - Declarative using data structures
     - VDOM-like diffing
-    - Events are functions and values
+    - Event handling based on pure functions and values
     - Custom widgets
 - Imperative `gi-gtk` where needed
 
 ## Type-Indexed State Machines
 
-- Using `motor` for describing state machines with types:
+- Using `motor` and `row-types` for typed state machines:
 
     ```haskell
     start
@@ -147,8 +187,51 @@ classoption: dvipsnames
       -> Actions m '[ n := State m mode !--> State m TimelineMode] r ()
     ```
 - Most complicated aspect of the codebase
-- Maybe worth it
 - Currently being rewritten
+
+<aside class="notes">
+- I'm using a library I've been working on called "Motor" ...
+- The most complicated aspect of the Komposition codebade
+- Not sure if it's worth the complexity
+    - But in combination with GADTs for state-specific events and commands ...
+</aside>
+
+## Singleton Pattern
+
+```haskell
+data Mode
+  = WelcomeScreenMode
+  | TimelineMode
+  | LibraryMode
+  | ImportMode
+
+data SMode m where
+  SWelcomeScreenMode :: SMode WelcomeScreenMode
+  STimelineMode      :: SMode TimelineMode
+  SLibraryMode       :: SMode LibraryMode
+  SImportMode        :: SMode ImportMode
+```
+
+## Using Singletons
+
+```haskell
+data Command (mode :: Mode) where
+  Cancel       :: Command mode
+  Help         :: Command mode
+  FocusCommand :: FocusCommand -> Command TimelineMode
+  JumpFocus    :: Focus SequenceFocusType -> Command TimelineMode
+  -- ...
+
+keymaps :: SMode m -> KeyMap (Command m)
+keymaps =
+  \case
+    SWelcomeScreenMode ->
+      [ ([KeyChar 'q'], Mapping Cancel)
+      , ([KeyEscape], Mapping Cancel)
+      , ([KeyChar '?'], Mapping Help)
+      ]
+    -- ...
+```
 
 ## Automatic Scene Classification
 
@@ -180,15 +263,16 @@ classoption: dvipsnames
     - Normalization
     - Noise gate
     - Auto-splitting by silence
-- Hard to find good defaults (currently hard-coded)
 - Creates segment audio files on disk (can't extract timespans)
+- Hard to find good defaults (currently hard-coded)
 
 ## Rendering
 
 - Flattening timeline
-    - Conversion from hierarchical timeline to flat IR
+    - Conversion from hierarchical timeline to a flat representation
     - Pads gaps and empty parts with still frames
-- Data types for FFmpeg CLI syntax
+- Flat representation is converted to a FFmpeg command
+    - Data types for FFmpeg CLI syntax
     - Common flags
     - Filter graph
 
@@ -279,12 +363,12 @@ classoption: dvipsnames
 
 ## Retrospective
 
-- The best parts:
+- The best parts
+    - Building a useful tool
     - Haskell and GHC
     - Keeping core domain pure
     - Testing with Hedgehog
-    - Making a useful tool
-- The problematic parts:
+- The problematic parts
     - Video and audio codecs, containers, streaming
     - Executing external programs
     - GTK+ in Haskell

@@ -48,7 +48,7 @@ classoption: dvipsnames
     - Suited to my workflow
 - I decided write it in Haskell
     - Didn't want to write an Electron app
-    - Settled on GTK+ (`gi-gtk` package)
+    - Settled on GTK+
 - Dog-fooding some of my own libraries
 
 # Komposition{background=#00008B .dark}
@@ -73,6 +73,14 @@ classoption: dvipsnames
     </td>
   </tr>
 </table>
+
+## Documentation
+
+- [owickstrom.github.io/komposition/](https://owickstrom.github.io/komposition/)
+    - User guide
+    - Tutorial screencast
+
+![Komposition documentation](images/documentation.png){width=60%}
 
 ## Hiearchical Timeline
 
@@ -108,6 +116,7 @@ classoption: dvipsnames
 
 ## GTK+
 
+- Haskell bindings from `gi-gtk`
 - Regular GTK+ was too painful
     - Imperative
     - Callback-oriented
@@ -157,11 +166,11 @@ classoption: dvipsnames
         -> Producer (Timed RGB8Frame) m ()
         -> Producer (Classified (Timed RGB8Frame)) m ()
 
-    classifyMovingScenes
-      :: Monad m
+    classifyMovingScenes ::
+         Monad m
       => Duration -- ^ Full length of video
-      -> Producer (Classified (Timed Frame)) m ()
-      -> Producer Time m [TimeSpan]
+      -> Producer (Classified (Timed RGB8Frame)) m ()
+      -> Producer ProgressUpdate m [TimeSpan]
     ```
 
 ## Automatic Sentence Classification
@@ -192,7 +201,7 @@ classoption: dvipsnames
 - GStreamer widget
     - Consumes the HTTP stream
     - Embedded in the GTK+ user interface
-- Unstable!
+- Unreliable
 - Currently doesn't work on individual clips and gaps
 
 # Testing{background=images/testing.jpg .dark}
@@ -214,6 +223,7 @@ classoption: dvipsnames
     - Generates known test scenes
     - Translates to real pixel buffers
     - Runs classifier, compares to known test scenes
+- Flattening of hierchical timeline
 - Symmetry of FFmpeg format printers and parsers
 
 ## Example-Based Testing
@@ -267,25 +277,32 @@ classoption: dvipsnames
 
 # Summary
 
-## Summary
+## Retrospective
 
-- ...
+- The best parts:
+    - Haskell and GHC
+    - Keeping core domain pure
+    - Testing with Hedgehog
+    - Making a useful tool
+- The problematic parts:
+    - Video and audio codecs, containers, streaming
+    - Executing external programs
+    - GTK+ in Haskell
+    - Packaging and dependencies
 
 ## Next Steps
 
-- Missing features:
-    - ...
-- Improvements:
-    - ...
-- Packaging
-
-## Documentation
-
-- [owickstrom.github.io/komposition/](https://owickstrom.github.io/komposition/)
-    - User guide
-    - Tutorial screencast
-
-![Komposition documentation](images/documentation.png){width=60%}
+- Features
+    - More commands (yank, paste, join, ...)
+    - Preview any timeline part
+    - Adjust clips
+    - Better OS integration and GUI
+- Improvements
+    - Technical debt, refactoring
+    - Content-addressed project files (reuse, avoiding collision)
+    - Optimized FFmpeg rendering
+    - Optimized diffing (gi-gtk-declarative)
+- Packaging (Debian, macOS, Windows, nixpkgs)
 
 ## Thank You!
 

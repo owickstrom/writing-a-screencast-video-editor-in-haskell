@@ -33,8 +33,8 @@ classoption: dvipsnames
 
 - Free video editors (Kdenlive, OpenShot, ...)
     - No good normalization and audio gate effects
-    - Unstable (and I don't want to hack C++)
     - Unsuited for my workflow
+    - Written in C++
 - Commerical video editors (Premiere Pro, Final Cut Pro, ...)
     - Proprietary
     - Expensive
@@ -155,29 +155,6 @@ If the video track is shorter, it will be padded with still frames
 # Demo{background=#000000 background-video=images/demo.gif background-video-loop=true .dark}
 
 # Implementation{background=images/cogs.jpg .dark}
-
-## Implementation
-
-<table style="width: 100%">
-    <tr>
-        <th>Language</th>
-        <th>Files</th>
-        <th>Comment</th>
-        <th>Code</th>
-    </tr>
-    <tr>
-        <td>Haskell</td>
-        <td>61</td>
-        <td>172</td>
-        <td>5438</td>
-    </tr>
-    <tr>
-        <td>CSS</td>
-        <td>1</td>
-        <td>0</td>
-        <td>143</td>
-    </tr>
-</table>
 
 ## Striving for Purely Functional
 
@@ -311,7 +288,6 @@ keymaps =
     - Noise gate
     - Auto-splitting by silence
 - Creates segment audio files on disk (can't extract timespans)
-- Hard to find good defaults (currently hard-coded)
 
 ## Rendering
 
@@ -352,7 +328,7 @@ keymaps =
     - Resulting focus should always be valid
 - Video scene classification
     - Generates known test scenes
-    - Translates to real pixel buffers
+    - Translates to real frame data
     - Runs classifier, compares to known test scenes
 - Flattening of hierchical timeline
 - Roundtrip properties of FFmpeg format printers and parsers
@@ -381,7 +357,7 @@ keymaps =
 
 - Used in video classifier
 - Parallel comparison of pixel arrays
-- Conversion from JuicyPixels frames to massiv arrays
+- No-copy conversion from JuicyPixels frames to massiv arrays
 - Lower-resolution proxy media helps with performance
 
 ## Pipes
@@ -427,13 +403,13 @@ keymaps =
     - More commands (yank, paste, join, ...)
     - Preview any timeline part
     - Adjust clips
-    - Better OS integration and GUI
 - Improvements
     - Technical debt, refactoring
     - Content-addressed project files (reuse, avoiding collision)
     - Optimized FFmpeg rendering
     - Optimized diffing (gi-gtk-declarative)
 - Packaging (Debian, macOS, Windows, nixpkgs)
+- ... and much more
 
 ## Thank You!
 

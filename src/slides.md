@@ -65,6 +65,7 @@ classoption: dvipsnames
 <table>
   <tr>
     <td>
+- Cross-platform GUI application
 - Modal
 - Hierarchical timeline
     - Sequences
@@ -73,7 +74,6 @@ classoption: dvipsnames
 - Automatic scene classification
 - Automatic sentence classification
 - Keyboard-driven editing workflow
-- Cross-platform
     </td>
     <td width="50%">
 ![Komposition](images/komposition.png)
@@ -83,7 +83,7 @@ classoption: dvipsnames
 
 ## Documentation
 
-- [owickstrom.github.io/komposition/](https://owickstrom.github.io/komposition/)
+- [https://owickstrom.github.io/komposition/](https://owickstrom.github.io/komposition/)
     - User guide
     - Tutorial screencast
 

@@ -101,12 +101,21 @@ classoption: dvipsnames
 
 ## Keyboard-Driven Editing
 
+<table>
+  <tr>
+    <td>
 - Vim-like bindings
 - Corresponding menu items
 - Some mouse support
 - Help dialog showing current mode's key bindings
+    </td>
+    <td width="50%">
+![Komposition](images/keybindings.png)
+    </td>
+  </tr>
+</table>
 
-# Demo{background-video=images/demo.gif background-video-loop=true .dark}
+# Demo{background=#000000 background-video=images/demo.gif background-video-loop=true .dark}
 
 # Implementation{background=images/cogs.jpg .dark}
 
@@ -309,7 +318,7 @@ keymaps =
     - Translates to real pixel buffers
     - Runs classifier, compares to known test scenes
 - Flattening of hierchical timeline
-- Symmetry of FFmpeg format printers and parsers
+- Roundtrip properties of FFmpeg format printers and parsers
 
 ## Example-Based Testing
 

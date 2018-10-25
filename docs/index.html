@@ -145,21 +145,6 @@
 </ul></li>
 </ul>
 <p><img data-src="images/documentation.png" alt="Komposition documentation" style="width:60.0%" /></p>
-</section><section id="hiearchical-timeline" class="slide level2">
-<h2>Hiearchical Timeline</h2>
-<ul>
-<li><strong>Sequences</strong> contain parallels that are played in sequence</li>
-<li><strong>Parallels</strong> contain video and audio tracks that are played in parallel</li>
-<li><strong>Gaps</strong> are rendered with still frames or silence
-<ul>
-<li>Same for shorter tracks within a parallel</li>
-</ul></li>
-<li>Sequences and parallels are used for
-<ul>
-<li>Grouping/structure</li>
-<li>Synchronization</li>
-</ul></li>
-</ul>
 </section><section id="keyboard-driven-editing" class="slide level2">
 <h2>Keyboard-Driven Editing</h2>
 <table>
@@ -177,6 +162,48 @@
 </tr>
 </table></li>
 </ul>
+</section></section>
+<section><section id="hierarchical-timeline" class="title-slide slide level1" data-background="#dddddd"><h1>Hierarchical Timeline</h1></section><section id="clips" class="slide level2">
+<h2>Clips</h2>
+<p><img data-src="images/timeline1.svg" alt="Clips" style="width:80.0%" /></p>
+<aside class="notes">
+Clips are put in video and audio tracks within parallels
+</aside>
+</section><section id="video-still-frames" class="slide level2">
+<h2>Video Still Frames</h2>
+<p><img data-src="images/timeline2.svg" alt="Video Still Frames" style="width:80.0%" /></p>
+<aside class="notes">
+If the video track is shorter, it will be padded with still frames
+</aside>
+</section><section id="adding-gaps" class="slide level2">
+<h2>Adding Gaps</h2>
+<p><img data-src="images/timeline3.svg" alt="Adding Gaps" style="width:100.0%" /></p>
+<aside class="notes">
+<ul>
+<li>You can add explicit gaps in video and audio tracks</li>
+<li>These are also filled with still frames for video</li>
+</ul>
+</aside>
+</section><section id="sequences" class="slide level2">
+<h2>Sequences</h2>
+<p><img data-src="images/timeline4.svg" alt="Sequences" style="width:100.0%" /></p>
+<aside class="notes">
+<ul>
+<li>Parallels are put in sequences</li>
+<li>Each parallel is played until its end, then the next, and so on</li>
+<li>Multiple parallels can be used to synchronize clips</li>
+</ul>
+</aside>
+</section><section id="timeline" class="slide level2">
+<h2>Timeline</h2>
+<p><img data-src="images/timeline5.svg" alt="Timeline" style="width:100.0%" /></p>
+<aside class="notes">
+<ul>
+<li>The top level is the timeline</li>
+<li>The timeline contain sequences</li>
+<li>It’s useful for organizing the parts of your screencast</li>
+</ul>
+</aside>
 </section></section>
 <section><section id="demo" class="title-slide slide level1 dark" data-background="#000000" data-background-video="images/demo.gif" data-background-video-loop="true"><h1>Demo</h1></section></section>
 <section><section id="implementation" class="title-slide slide level1 dark" data-background="images/cogs.jpg"><h1>Implementation</h1></section><section id="implementation-1" class="slide level2">
@@ -520,6 +547,7 @@ classifyMovingScenes ::
 <li><a href="https://commons.wikimedia.org/wiki/File:Old_Cogs_(5084228263).jpg">Old Cogs by Emmanuel Huybrechts from Laval, Canada (Old Cogs) CC BY 2.0, via Wikimedia Commons</a></li>
 <li><a href="https://www.reddit.com/r/BetterEveryLoop/comments/6gsbs3/save_the_skateboard/">Save the skateboard!</a></li>
 </ul></li>
+<li>Thanks to <a href="https://twitter.com/sassela">@sassela</a> for great feedback!</li>
 </ul>
 </section></section>
     </div>

@@ -77,8 +77,8 @@
 <li>Free video editors (Kdenlive, OpenShot, …)
 <ul>
 <li>No good normalization and audio gate effects</li>
-<li>Unstable (and I don’t want to hack C++)</li>
 <li>Unsuited for my workflow</li>
+<li>Written in C++</li>
 </ul></li>
 <li>Commerical video editors (Premiere Pro, Final Cut Pro, …)
 <ul>
@@ -206,53 +206,7 @@ If the video track is shorter, it will be padded with still frames
 </aside>
 </section></section>
 <section><section id="demo" class="title-slide slide level1 dark" data-background="#000000" data-background-video="images/demo.gif" data-background-video-loop="true"><h1>Demo</h1></section></section>
-<section><section id="implementation" class="title-slide slide level1 dark" data-background="images/cogs.jpg"><h1>Implementation</h1></section><section id="implementation-1" class="slide level2">
-<h2>Implementation</h2>
-<table style="width: 100%">
-<tr>
-<th>
-Language
-</th>
-<th>
-Files
-</th>
-<th>
-Comment
-</th>
-<th>
-Code
-</th>
-</tr>
-<tr>
-<td>
-Haskell
-</td>
-<td>
-61
-</td>
-<td>
-172
-</td>
-<td>
-5438
-</td>
-</tr>
-<tr>
-<td>
-CSS
-</td>
-<td>
-1
-</td>
-<td>
-0
-</td>
-<td>
-143
-</td>
-</tr>
-</table>
-</section><section id="striving-for-purely-functional" class="slide level2">
+<section><section id="implementation" class="title-slide slide level1 dark" data-background="images/cogs.jpg"><h1>Implementation</h1></section><section id="striving-for-purely-functional" class="slide level2">
 <h2>Striving for Purely Functional</h2>
 <ul>
 <li>Pure functions and data structures in core domain
@@ -385,7 +339,6 @@ classifyMovingScenes ::
 <li>Auto-splitting by silence</li>
 </ul></li>
 <li>Creates segment audio files on disk (can’t extract timespans)</li>
-<li>Hard to find good defaults (currently hard-coded)</li>
 </ul>
 </section><section id="rendering" class="slide level2">
 <h2>Rendering</h2>
@@ -439,7 +392,7 @@ classifyMovingScenes ::
 <li>Video scene classification
 <ul>
 <li>Generates known test scenes</li>
-<li>Translates to real pixel buffers</li>
+<li>Translates to real frame data</li>
 <li>Runs classifier, compares to known test scenes</li>
 </ul></li>
 <li>Flattening of hierchical timeline</li>
@@ -473,7 +426,7 @@ classifyMovingScenes ::
 <ul>
 <li>Used in video classifier</li>
 <li>Parallel comparison of pixel arrays</li>
-<li>Conversion from JuicyPixels frames to massiv arrays</li>
+<li>No-copy conversion from JuicyPixels frames to massiv arrays</li>
 <li>Lower-resolution proxy media helps with performance</li>
 </ul>
 </section><section id="pipes" class="slide level2">
@@ -524,7 +477,6 @@ classifyMovingScenes ::
 <li>More commands (yank, paste, join, …)</li>
 <li>Preview any timeline part</li>
 <li>Adjust clips</li>
-<li>Better OS integration and GUI</li>
 </ul></li>
 <li>Improvements
 <ul>
@@ -534,6 +486,7 @@ classifyMovingScenes ::
 <li>Optimized diffing (gi-gtk-declarative)</li>
 </ul></li>
 <li>Packaging (Debian, macOS, Windows, nixpkgs)</li>
+<li>… and much more</li>
 </ul>
 </section><section id="thank-you" class="slide level2">
 <h2>Thank You!</h2>

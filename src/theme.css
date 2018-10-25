@@ -303,12 +303,20 @@ p.author, p.date {
 }
 
 .reveal h1 {
-  font-size: 4em;
+  font-size: 3.5em;
+}
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  font-weight: 800;
 }
 
 
-.reveal .slides section.contain {
+.reveal .slides section.align-top {
   top: 0 !important;
+}
+.reveal .slides section.align-bottom {
+  top: 70vh !important;
 }
 .reveal .slide-background.contain .slide-background-content {
   background-size: contain;

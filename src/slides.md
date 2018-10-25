@@ -11,11 +11,11 @@ classoption: dvipsnames
 - Live in Malmö, Sweden
 - Work for [Symbiont](https://symbiont.io/)
 - Blog at [wickstrom.tech](https://wickstrom.tech)
-- [Haskell at Work](https://haskell-at-work.com) screencasts
 - Maintain some open source projects
+- [Haskell at Work](https://haskell-at-work.com) screencasts
 - Spent the last six months writing a screencast video editor
 
-# Background{background=images/evolution.png .contain}
+# Background{background=images/evolution.png .align-top .contain}
 
 ## Haskell at Work
 
@@ -46,7 +46,7 @@ classoption: dvipsnames
 * So, I started "The Great Yak Shave"
 </aside>
 
-# The Great Yak Shave{background=images/yak.jpg .dark}
+# The Great Yak Shave{background=images/yak.jpg .dark .align-bottom}
 
 ## Building a Video Editor
 
@@ -141,9 +141,10 @@ classoption: dvipsnames
     - Commands
     - Event handling
     - Key bindings
+    - Parts of video classification
 - Impure parts:
     - Audio and video import
-    - Scene/sentence classification
+    - Sentence classification
     - Preview frame rendering
     - Main application control flow
 
@@ -372,7 +373,7 @@ keymaps =
     - Video and audio codecs, containers, streaming
     - Executing external programs
     - GTK+ in Haskell
-    - Packaging and dependencies
+    - Dependency managment (non-Haskell dependencies)
 
 ## Next Steps
 
@@ -392,7 +393,6 @@ keymaps =
 
 - Komposition: [owickstrom.github.io/komposition/](https://owickstrom.github.io/komposition/)
 - Slides: [owickstrom.github.io/writing-a-screencast-video-editor-in-haskell/](https://owickstrom.github.io/writing-a-screencast-video-editor-in-haskell/)
-- Code examples and slides source code: [github.com/owickstrom/writing-a-screencast-video-editor-in-haskell/](https://github.com/owickstrom/writing-a-screencast-video-editor-in-haskell/)
 - Image credits:
     - [Yak by travelwayoflife - Flickr, CC BY-SA 2.0](https://commons.wikimedia.org/w/index.php?curid=22106967)
     - [Human evolution scheme by M. Garde - Self work (Original by: José-Manuel Benitos), CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=2165296)

@@ -89,16 +89,6 @@ classoption: dvipsnames
 
 ![Komposition documentation](images/documentation.png){width=60%}
 
-## Hiearchical Timeline
-
-- **Sequences** contain parallels that are played in sequence
-- **Parallels** contain video and audio tracks that are played in parallel
-- **Gaps** are rendered with still frames or silence
-    - Same for shorter tracks within a parallel
-- Sequences and parallels are used for
-    - Grouping/structure
-    - Synchronization
-
 ## Keyboard-Driven Editing
 
 <table>
@@ -114,6 +104,53 @@ classoption: dvipsnames
     </td>
   </tr>
 </table>
+
+# Hierarchical Timeline{background=#dddddd}
+
+## Clips
+
+![Clips](images/timeline1.svg){width=80%}
+
+<aside class="notes">
+Clips are put in video and audio tracks within parallels
+</aside>
+
+## Video Still Frames
+
+![Video Still Frames](images/timeline2.svg){width=80%}
+
+<aside class="notes">
+If the video track is shorter, it will be padded with still frames
+</aside>
+
+## Adding Gaps
+
+![Adding Gaps](images/timeline3.svg){width=100%}
+
+<aside class="notes">
+- You can add explicit gaps in video and audio tracks
+- These are also filled with still frames for video
+</aside>
+
+## Sequences
+
+![Sequences](images/timeline4.svg){width=100%}
+
+<aside class="notes">
+- Parallels are put in sequences
+- Each parallel is played until its end, then the next, and so on
+- Multiple parallels can be used to synchronize clips
+</aside>
+
+## Timeline
+
+![Timeline](images/timeline5.svg){width=100%}
+
+<aside class="notes">
+- The top level is the timeline
+- The timeline contain sequences
+- It's useful for organizing the parts of your screencast
+</aside>
 
 # Demo{background=#000000 background-video=images/demo.gif background-video-loop=true .dark}
 
@@ -407,3 +444,4 @@ keymaps =
     - [Human evolution scheme by M. Garde - Self work (Original by: José-Manuel Benitos), CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=2165296)
     - [Old Cogs by Emmanuel Huybrechts from Laval, Canada (Old Cogs) CC BY 2.0, via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Old_Cogs_(5084228263).jpg)
     - [Save the skateboard!](https://www.reddit.com/r/BetterEveryLoop/comments/6gsbs3/save_the_skateboard/)
+- Thanks to [\@sassela](https://twitter.com/sassela) for great feedback!

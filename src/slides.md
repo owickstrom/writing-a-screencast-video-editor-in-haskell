@@ -282,7 +282,6 @@ keymaps =
 
 ## Automatic Sentence Classification
 
-- Automatic sentence classification of audio
 - Currently using `sox`
     - Normalization
     - Noise gate
